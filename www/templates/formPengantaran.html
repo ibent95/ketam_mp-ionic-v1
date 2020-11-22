@@ -1,0 +1,29 @@
+<ion-view title="Form Pengantaran" id="page-form-pengantaran">
+	<ion-content padding="false" class="has-header">
+		<form>
+			<ion-list>
+                <label class="item item-input" name="tgl_pengantaran">
+                    <span class="input-label">Tanggal</span>
+                    <div class="text-placeholder-like">
+                        <span ng-if="!transactionData.tgl_pengantaran">Pilih tanggal pengantaran...</span>
+                    </div>
+                    <span ng-if="transactionData.tgl_pengantaran">{{ transactionData.tgl_pengantaran | date: 'yyyy-MM-dd' }}</span>
+                    <input type="hidden" ng-model="transactionData.tgl_pengantaran" ion-datetime-picker date monday-first
+                    value="{{ transactionData.tgl_pengantaran | date: 'yyyy-MM-dd' }}" />
+                </label>
+                <ion-item class="item-divider"> Lokasi :</ion-item>
+                <label class="item item-input item-floating-label" name="alamat_pengantaran">
+                    <span class="input-label">Alamat</span>
+                    <input type="text" ng-model="transactionData.alamat_pengantaran" placeholder="Masukan alamat pengantaran..." id="alamat_pengantaran" />
+                </label>
+                <div map-lazy-load="{{googleMapsUrl}}">
+                    <ng-map center="[{{coordinate.latitude}}, {{coordinate.longitude}}]" zoom="14" map-type-control="false" street-view-control="false" map-initialized="initMap(map)" class="map" id="map">
+                        <!--<img src="marker.png" style="position:absolute;left:50%;bottom:50%;width:32px;height:18px" />-->
+                        <i class="center-marker"></i>
+                    </ng-map>
+                </div>
+			</ion-list>
+			<button class="button button-positive button-full icon-right ion-android-send" ng-click="nextPage(3)">Lanjutkan</button>
+		</form>
+	</ion-content>
+</ion-view>

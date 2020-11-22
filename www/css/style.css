@@ -1,0 +1,13 @@
+/* Empty. Add your own CSS if you like */
+i.center-marker {
+    position:absolute;
+    background:url(../img/marker-blue.png) no-repeat;
+    top:50%;
+    left:50%;
+    z-index:1;
+    margin-left:-24.45px;
+    margin-top:30px;
+    height:48px;
+    width:48px;
+    cursor:pointer;
+}

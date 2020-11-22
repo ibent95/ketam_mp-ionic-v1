@@ -1,0 +1,34 @@
+<ion-view title="Form Transaksi" id="page-form-transaksi">
+    <!--<ion-nav-buttons side="left">
+        <button class="button button-clear" ng-click="myGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            Back
+        </button>
+    </ion-nav-buttons>-->
+    <ion-content padding="true" class="has-header">
+        <form>
+            <ion-list>
+                <ion-item class="item-divider"> Item :</ion-item>
+                <ion-item ng-repeat="item in itemsToTransaction">
+                    {{ item.nama_barang }}
+                    <span class="item-note">{{ item.total_harga | currency : "Rp. " : 0 }}</span>
+                </ion-item>
+                <ion-item class="item-divider"> Data Transaksi :</ion-item>
+                <label class="item item-input" name="nama_pelanggan">
+                    <span class="input-label">Name</span>
+                    <input type="text" ng-model="transactionData.nama_pelanggan" placeholder="Nama Lengkap">
+                </label>
+                <label class="item item-input" name="no_hp">
+                    <span class="input-label">No. HP</span>
+                    <input type="tel" ng-model="transactionData.no_telp" placeholder="No. HP yang bisa dihubungi">
+                </label>
+                <label class="item item-input item-stacked-label" name="keterangan">
+                    <span class="input-label">Keterangan</span>
+                    <textarea name="transactionData.no_telp" ng-model="transactionData.keterangan" rows="5" placeholder="Masukan keterangan untuk merincikan hal yang berkaitan dengan transaksi ini, seperti alamat yang lebih spesifik..."></textarea>
+                </label>
+            </ion-list>
+            <ion-toggle toggle-class="toggle-positive" ng-model="transactionData.diantarkan" name="diantarkan" ng-change="shippingChange()">Diantarkan? (Biaya: Rp 20.000/item)</ion-toggle> <!-- ng-checked="false" -->
+            <button class="button button-positive button-block icon-right ion-android-send" ng-click="nextPage(2)">Lanjutkan</button>
+        </form>
+    </ion-content>
+</ion-view>

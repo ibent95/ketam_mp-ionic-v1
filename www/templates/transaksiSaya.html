@@ -1,0 +1,29 @@
+<ion-view title="Transaksi Saya" id="page18">
+  <ion-content padding="true" class="has-header">
+    <ion-list id="transaksiSaya-list15">
+      <ion-item class="item-divider"> Pending :</ion-item>
+      <ion-item class="" ng-repeat="transaksiTunggu in transaksiTungguAll" ng-click="detailTransaksi(transaksiTunggu.id_transaksi)">
+        <h2>No. Transaksi {{ transaksiTunggu.no_transaksi }}</h2>
+        <p style="white-space:normal;">Tgl: {{ transaksiTunggu.tgl_transaksi }}</p>
+        <p>
+          Menunggu konfirmasi dari Administrator.
+        </p>
+      </ion-item>
+      <ion-item class="item-divider"> Proses :</ion-item>
+      <ion-item class="" ng-repeat="transaksiProses in transaksiProsesAll" ng-click="detailTransaksi(transaksiProses.id_transaksi)">
+        <h2>No. Transaksi {{ transaksiProses.no_transaksi }}</h2>
+        <p style="white-space:normal;">Tgl: {{ transaksiProses.tgl_transaksi }}</p>
+        <p>
+          Transaksi dalam proses. Jangan lupa untuk mengkonfirmasi saat ingin mengembalikan barang.
+        </p>
+      </ion-item>
+      <ion-item class="item-divider"> Riwayat Transaksi :</ion-item>
+      <ion-item class="item-icon-right" ng-click="riwayatTransaksiSelesai()">Selesai
+        <i class="icon ion-android-checkbox"></i>
+      </ion-item>
+      <ion-item class="item-icon-right" ng-click="riwayatTransaksiBatal()">Batal
+        <i class="icon ion-android-cancel"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

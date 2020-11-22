@@ -1,0 +1,60 @@
+<ion-view title="Rincian Transaksi {{ transaksi.no_transaksi }}">
+  <ion-content padding="true" class="has-header">
+    <ion-list class="">
+      <ion-item class="item-divider">Informasi Umum : 
+        <button class="button button-balanced button-small" ng-if="itemArrived">
+          Diterima
+        </button>
+      </ion-item>
+      <ion-item>No. Transaksi
+        <span class="item-note">{{ transaksi.no_transaksi }}</span>
+      </ion-item>
+      <ion-item>Tgl. Transaksi
+        <span class="item-note">{{ transaksi.tgl_transaksi }}</span>
+      </ion-item>
+      <ion-item>Toko
+        <span class="item-note">{{ transaksi.nama_toko }}</span>
+      </ion-item>
+      <ion-item>Total Harga
+        
+        <span class="item-note">{{ transaksi.no_transaksi }}</span>
+      </ion-item>
+      <ion-item class="item-divider">Pengembalian :</ion-item>
+      <div class="item item-body">Status : 
+        <span class="">{{ transaksi.status_pengembalian }}</span>
+        <span>
+            <button class="button button-positive button-small" ng-if="confirmReturn">
+              Confirm Return
+            </button>
+        </span>
+      </div>
+      <ion-item class="item-divider">Tgl. Transaksi :</ion-item>
+      <ion-item>Awal
+        <span class="item-note">{{ transaksi.tgl_awal_transaksi }}</span>
+      </ion-item>
+      <ion-item>Akhir
+        <span class="item-note">{{ transaksi.tgl_akhir_transaksi }}</span>
+      </ion-item>
+      <ion-item class="item-divider">Keterangan :</ion-item>
+      <ion-item class="item-body">
+        <div style="text-align:justify;" class="show-list-numbers-and-dots">
+          <p style="margin-top:0px;color:#000000;">{{ transaksi.keterangan }}</p>
+        </div>
+      </ion-item>
+      <ion-item class="item-divider">Pengantaran :</ion-item>
+    </ion-list>
+    <ion-list class="">
+      <ion-item>Alamat
+        <span class="item-note">{{ transaksi.alamat_pengantaran }}</span>
+      </ion-item>
+      <ion-item>Tanggal
+        <span class="item-note">{{ transaksi.alamat_pengantaran }}</span>
+      </ion-item>
+      <div class="item item-body">
+        <div style="text-align:justify;" class="show-list-numbers-and-dots">
+          <p style="margin-top:0px;color:#000000;">Jl. Bla Bla Bla...</p>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

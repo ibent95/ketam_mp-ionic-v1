@@ -1,0 +1,19 @@
+<ion-view title="Masuk" id="page9">
+	<ion-content padding="true" class="has-header">
+		<form id="masuk-form2" class="list">
+			<ion-list id="masuk-list4">
+				<label class="item item-input item-floating-label" id="masuk-input3">
+					<span class="input-label">Username</span>
+					<input type="text" name="username" id="username" placeholder="Username" ng-model="data.username">
+				</label>
+				<label class="item item-input item-floating-label" id="masuk-input4">
+					<span class="input-label">Password</span>
+					<input type="password" name="password" id="password" placeholder="Password" ng-model="data.password">
+				</label>
+			</ion-list>
+			<div class="spacer" style="height: 40px;"></div>
+			<button id="masuk-button7" class="button button-positive button-block" ng-click="login()">Log in</button>
+			<a ui-sref="daftar()" id="masuk-button8" class="button button-positive button-block button-clear">Or create an account</a>
+		</form>
+	</ion-content>
+</ion-view>

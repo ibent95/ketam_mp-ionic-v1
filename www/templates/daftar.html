@@ -1,0 +1,64 @@
+<ion-view title="Daftar" id="page10">
+	<ion-content padding="true" class="has-header">
+		<form id="daftar-form3" class="list">
+			<ion-list id="daftar-list5">
+
+				<label class="message-error" ng-model="error_input">{{ warning.nama_lengkap }}</label>
+				<label class="item item-input item-floating-label" id="daftar-input5">
+					<span class="input-label">Nama Pelanggan</span>
+					<input type="text" name="nama_pelanggan" placeholder="Nama Pelanggan" ng-model="user.nama_pelanggan">
+				</label>
+
+				<label class="message-error" ng-model="error_input">{{ warning.email }}</label>
+				<label class="item item-input item-floating-label" id="daftar-input6">
+					<span class="input-label">Email</span>
+					<input type="email" name="email" placeholder="Email" ng-model="user.email">
+				</label>
+
+				<label class="message-error" ng-model="error_input">{{ warning.username }}</label>
+				<label class="item item-input item-floating-label" id="daftar-input6">
+					<span class="input-label">Username</span>
+					<input type="text" name="username" placeholder="Username" ng-model="user.username">
+				</label>
+
+				<label class="message-error" ng-model="error_input">{{ warning.password }}</label>
+				<label class="item item-input item-floating-label" id="daftar-input7">
+					<span class="input-label">Password</span>
+					<input type="password" name="password" placeholder="Password" ng-model="user.password">
+				</label>
+
+				<label class="message-error" ng-model="error_input">{{ warning.telepon }}</label>
+				<label class="item item-input item-floating-label" id="daftar-input7">
+					<span class="input-label">No. Telepon</span>
+					<input type="text" name="telepon" placeholder="No. Telepon" ng-model="user.telepon">
+				</label>
+
+				<label class="message-error" ng-model="error_input">{{ warning.alamat }}</label>
+				<label class="item item-input item-floating-label" id="daftar-input7">
+					<span class="input-label">Alamat</span>
+					<input type="text" name="alamat" placeholder="Alamat" ng-model="user.alamat">
+				</label>
+
+				<label class="message-error" ng-model="error_input">{{ warning.foto }}</label>
+				<label class="item item-input" id="daftar-input-foto-profil">
+					<span class="input-label">Foto Profil</span>
+
+					<img ng-src="{{ fotoProfil }}">
+					<button class="button button-positive button-outline ion-camera" ng-click="takeProfilePicture()"></button>
+					<!-- <button class="button button-balanced button-outline ion-camera" ng-click="getProfilePicture()">Open Gallery</button> -->
+				</label>
+
+				<label class="message-error" ng-model="error_input">{{ warning.foto_ktp }}</label>
+				<label class="item item-input" id="daftar-input-ktp">
+					<span class="input-label">Foto KTP</span>
+
+					<img ng-src="{{ fotoKTP }}">
+					<button class="button button-positive button-outline ion-camera" ng-click="takeIdentityPicture()"> KTP</button>
+					<!-- <button class="button button-balanced button-outline ion-camera" ng-click="getIdentityPicture()">Open Gallery</button> -->
+				</label>
+
+			</ion-list>
+			<button id="daftar-button9" class="button button-positive button-block" ng-click="register()">Register</button>
+		</form>
+	</ion-content>
+</ion-view>

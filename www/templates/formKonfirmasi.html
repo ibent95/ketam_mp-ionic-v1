@@ -1,0 +1,42 @@
+<ion-view title="Form Konfirmasi" id="page-form-konfirmasi">
+    <ion-content padding="true" class="has-header">
+        <form>
+            <ion-list ng-init="transactionData.totalBayar = 0;">
+                <ion-item class="item-divider"> Item :</ion-item>
+                <ion-item ng-repeat="item in itemsToTransaction">
+                    {{ item.nama_barang }}
+                    <span class="item-note" ng-init="transactionData.totalBayar = transactionData.totalBayar + item.total_harga;">{{ item.total_harga | currency : "Rp. " : 0 }}</span>
+                </ion-item>
+                <ion-item>
+                    Total Bayar
+                    <span class="item-note">{{ transactionData.totalBayar | currency : "Rp. " : 0 }}</span>
+                </ion-item>
+                <ion-item class="item-divider"> Data Konfirmasi :</ion-item>
+                <label class="item item-input">
+                    <span class="input-label">Name</span>
+                    <span>{{ transactionData.nama_pelanggan }}</span>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">No. HP</span>
+                    <span>{{ $scope.transactionData.no_telp }}</span>
+                </label>
+                <label class="item item-input item-stacked-label" name="keterangan">
+                    <span class="input-label">Keterangan</span>
+                    <span>{{ transactionData.keterangan }}</span>
+                </label>
+                <div ng-if="transactionData.diantarkan == true">
+                    <ion-item class="item-divider"> Pengantaran :</ion-item>
+                    <label class="item item-input item-stacked-label" ng-show="transactionData.diantarkan">
+                        <span class="input-label">Tanggal</span>
+                        <span ng-if="transactionData.tgl_pengantaran">{{ transactionData.tgl_pengantaran | date: 'yyyy-MM-dd' }}</span>
+                    </label>
+                    <label class="item item-input item-stacked-label" ng-show="transactionData.diantarkan">
+                        <span class="input-label">Alamat</span>
+                        <span>{{ transactionData.alamat_pengantaran }}</span>
+                    </label>
+                </div>
+            </ion-list>
+            <button class="button button-positive button-block icon-right ion-android-send" ng-click="submitTransaksi()">Checkout</button>
+        </form>
+    </ion-content>
+</ion-view>

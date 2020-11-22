@@ -1,0 +1,69 @@
+<div class="modal">
+	<ion-modal-view>
+		<ion-header-bar class="bar bar-header bar-positive">
+			<h1 class="title" style="left: 0px;">Data Item di Keranjang</h1>
+			<button class="button button-clear button-primary" ng-click="modalKeranjang.hide()">Cancel</button>
+		</ion-header-bar>
+		<ion-content class="padding">
+			<div class="list">
+                <ion-item class="item-divider">Barang :</ion-item>
+				<!--<input type="hidden" ng-model="keranjang.id_barang" />-->
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Nama</span>
+						<span class="col text-right">{{ keranjang.nama_barang }}</span>
+					</div>
+					<!--<input type="text" ng-model="keranjang.nama_barang" />-->
+                </label>
+                <label class="item item-input">
+                    <div class="row">
+                        <span class="input-label col col-45">Harga Sewa</span>
+                        <span class="col text-right">{{ keranjang.harga_sewa | currency : "Rp. " : 0 }}</span>
+                    </div>
+                    <!--<input type="number" ng-model="" pattern="\d*" />-->
+                </label>
+                <label class="item item-input">
+                    <div class="row">
+                        <span class="input-label col col-45">Jumlah</span>
+                        <span class="col text-right">{{ keranjang.jumlah_barang | number : 0 }}</span>
+                        <!--<div class="item item-icon-right">
+                            <input type="number" class="col text-right" ng-model="keranjang.jumlah_barang" ng-change="jumlahBarangChange()" pattern="\d*" min="{{ 0 }}" max="{{ keranjang.stok_barang }}" required >
+                            <i class="icon ion-edit placeholder-icon"></i>
+                        </div>-->
+                    </div>
+                </label>
+                <ion-item class="item-divider">Transaksi :</ion-item>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Sewa Awal</span>
+						<span class="col text-right">{{ keranjang.tgl_sewa_awal | date: 'yyyy-MM-dd' }}</span>
+					</div>
+					<!--<input type="number" ng-model="keranjang.tgl_sewa_awal" pattern="\d*" />-->
+                </label>
+                <label class="item item-input">
+                    <div class="row">
+                        <span class="input-label col col-45">Sewa Akhir</span>
+                        <span class="col text-right">{{ keranjang.tgl_sewa_akhir | date: 'yyyy-MM-dd' }}</span>
+                    </div>
+                    <!--<input type="number" ng-model="keranjang.tgl_sewa_akhir" pattern="\d*" />-->
+                </label>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Jumlah Hari Sewa</span>
+						<span class="col text-right">{{ keranjang.jumlah_hari | number : 0 }} Hari</span>
+					</div>
+					<!--<input type="number" ng-model="jumlahHariSewa" pattern="\d*" />-->
+                </label>
+                <ion-item class="item-divider">Total :</ion-item>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Total Harga</span>
+						<span class="col text-right">{{ keranjang.total_harga | currency : "Rp. " : 0 }}</span>
+					</div>
+					<!--<input type="number" ng-model="keranjang.total_harga" pattern="\d*" />-->
+				</label>
+				<!--<button class="button button-full button-positive" ng-click="tambahKeranjang(item)">Create</button>-->
+			</div>
+		</ion-content>
+	</ion-modal-view>
+</div>

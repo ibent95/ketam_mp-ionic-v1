@@ -1,0 +1,28 @@
+<ion-view title="Profil" id="page4">
+	<ion-content padding="true" class="has-header">
+		<ion-list id="profil-list7">
+			<ion-item class="item-avatar item-icon-right" id="profil-list-item-nama">
+				<img src="img/2vBHNFSuuc5LQgmMlDAm_Logo.png">
+				<h2>{{ pelanggan.nama_pelanggan }}</h2>
+				<p>{{ pelanggan.username }}</p>
+			</ion-item>
+			<ion-item id="profil-list-item-email">
+				Email
+				<span class="item-note">{{ pelanggan.email }}</span>
+			</ion-item>
+			<ion-item id="profil-list-item-no-hp">
+				No. HP
+				<span class="item-note">{{ pelanggan.telepon }}</span>
+			</ion-item>
+			<ion-item id="profil-list-item-alamat">
+				Alamat
+				<span class="item-note">{{ pelanggan.alamat }}</span>
+			</ion-item>
+			<ion-item id="profil-list-item-status-akun">
+				Status Akun
+				<span class="item-note">{{ pelanggan.status_akun }}</span>
+			</ion-item>
+		</ion-list>
+		<button class="button button-positive button-block">Ubah</button>
+	</ion-content>
+</ion-view>

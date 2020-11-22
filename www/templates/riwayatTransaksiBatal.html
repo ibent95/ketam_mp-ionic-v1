@@ -1,0 +1,17 @@
+<ion-view title="Riwayat Transaksi - Batal" id="page20">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-android-alert"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <ion-list>
+      <ion-item class="item-divider"> Transaksi Batal :</ion-item>
+      <ion-item class="item" ng-if="transaksiBatalAll.message">
+        <p class="text-center">Belum ada Data..!</p>
+      </ion-item>
+      <ion-item class="" ng-if="!transaksiBatalAll.message" ng-repeat="transaksi in transaksiBatalAll">
+        <h2>{{ transaksi.no_transaksi }}</h2>
+        <p style="white-space:normal;">{{ transaksi.tgl_transaksi }}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

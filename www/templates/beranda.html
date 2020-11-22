@@ -1,0 +1,27 @@
+<ion-view title="Beranda" id="page2">
+	<ion-content padding="true" class="has-header">
+
+		<form id="beranda-search-form" class="list">
+			<label class="item item-input item-floating-label" id="beranda-input-tgl-awal">
+				<div class="text-placeholder-like">
+                    <span ng-if="!tglAwal">Tanggal Awal...</span>
+				</div>
+                <span ng-if="tglAwal">{{tglAwal | date: 'yyyy-MM-dd'}}</span>
+				<input type="hidden" name="tglAwal" id="tglAwal" ng-model="tglAwal" ion-datetime-picker date monday-first value="{{tglAwal | date: 'yyyy-MM-dd'}}" />
+			</label>
+			<label class="item item-input item-floating-label" id="beranda-input-tgl-akhir">
+				<div class="text-placeholder-like">
+                    <span ng-if="!tglAkhir">Tanggal Akhir...</span>
+				</div>
+                <span ng-if="tglAkhir">{{tglAkhir | date: 'yyyy-MM-dd'}}</span>
+				<input type="hidden" name="tglAkhir" id="tglAkhir" ng-model="tglAkhir" ion-datetime-picker date monday-first value="{{tglAkhir| date: 'yyyy-MM-dd'}}" />
+			</label>
+
+			<button class="button button-positive button-block" ng-click="setDateRent(tglAwal, tglAkhir)" id="set-date-button">
+				Tentukan
+				<i class="ion ion-icon-chevron-right"></i>
+			</button>
+		</form>
+
+	</ion-content>
+</ion-view>

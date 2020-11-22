@@ -1,0 +1,29 @@
+<ion-view title="Keranjang" id="page3">
+	<ion-content padding="true" class="has-header">
+		<ion-list id="keranjang-list">
+			<ion-item class="item-divider" id="keranjang-list-item-divider"> Item</ion-item>
+			<ion-item class="item" id="keranjang-list-item-" ng-if="keranjangAll.message">
+				<p class="text-center">Belum ada Data..!</p>
+			</ion-item>
+			<ion-item class="item-thumbnail-left" id="keranjang-list-item-" ng-if="!keranjangAll.message" ng-repeat="keranjang in keranjangAll" ng-init="keranjang.checked = false;">
+				<img src="img/khzKvlNTR1SKh3FReGjw_Logo.png" ng-click="keranjangDetail(keranjang)">
+				<div class="row">
+					<div class="col" ng-click="keranjangDetail(keranjang)">
+						<h2>{{ keranjang.nama_barang }}</h2>
+						<p>
+							{{ keranjang.total_harga | currency : "Rp. " : 0 }} <br>
+							{{ keranjang.tgl_masuk | date : 'yyyy-MM-dd' }}
+						</p>
+					</div>
+					<div class="col text-right">
+						<input type="checkbox" class="checkbox-bigger" ng-model="keranjang.checked" ng-change="cartChoseChange(keranjang)" style="padding: 100px;">
+					</div>
+				</div>
+			</ion-item>
+		</ion-list>
+		<div id="keranjang-button-bar1" class="button-bar">
+			<button id="keranjang-button-remove" class="button button-assertive button-block" ng-click="removeFromKeranjang()">Remove</button>
+			<button id="keranjang-button6-checkout" class="button button-positive button-block" ng-click="checkoutFromKeranjang()">Checkout</button>
+		</div>
+	</ion-content>
+</ion-view>

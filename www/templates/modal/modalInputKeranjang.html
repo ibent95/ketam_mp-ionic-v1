@@ -1,0 +1,58 @@
+<div class="modal">
+	<ion-modal-view>
+		<ion-header-bar class="bar bar-header bar-positive">
+			<h1 class="title" style="left: 0px;">Data Barang ke Keranjang</h1>
+			<button class="button button-clear button-primary" ng-click="modalKeranjang.hide()">Cancel</button>
+		</ion-header-bar>
+		<ion-content class="padding">
+			<div class="list">
+				<input type="hidden" ng-model="item.id_barang" />
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Nama Barang</span>
+						<span class="col text-right">{{ barang.nama_barang }}</span>
+					</div>
+					<!--<input type="text" ng-model="barang.nama_barang" />-->
+				</label>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Stok Barang</span>
+						<span class="col text-right">{{ item.stok_barang | number : 0 }}</span>
+					</div>
+					<!--<input type="number" ng-model="item.stok_barang" pattern="\d*" />-->
+				</label>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Harga Sewa</span>
+						<span class="col text-right">{{ item.harga_sewa | currency : "Rp. " : 0 }}</span>
+					</div>
+					<!--<input type="number" ng-model="" pattern="\d*" />-->
+				</label>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Jumlah Barang </span>
+						<div class="item item-icon-right">
+							<input type="number" class="col text-right" ng-model="item.jumlah_barang" ng-change="jumlahBarangChange()" pattern="\d*" min="{{ 0 }}" max="{{ item.stok_barang }}" required >
+							<i class="icon ion-edit placeholder-icon"></i>
+						</div>
+					</div>
+				</label>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Sewa (Hari)</span>
+						<span class="col text-right">{{ jumlahHariSewa | number : 0 }} Hari</span>
+					</div>
+					<!--<input type="number" ng-model="jumlahHariSewa" pattern="\d*" />-->
+				</label>
+				<label class="item item-input">
+					<div class="row">
+						<span class="input-label col col-45">Total Harga</span>
+						<span class="col text-right">{{ item.total_harga | currency : "Rp. " : 0 }}</span>
+					</div>
+					<!--<input type="number" ng-model="item.total_harga" pattern="\d*" />-->
+				</label>
+				<button class="button button-full button-positive" ng-click="tambahKeranjang(item)">Create</button>
+			</div>
+		</ion-content>
+	</ion-modal-view>
+</div>

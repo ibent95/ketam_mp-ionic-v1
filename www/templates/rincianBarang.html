@@ -1,0 +1,45 @@
+<ion-view title="Rincian - {{barang.nama_barang}}">
+	<!--<ion-nav-buttons side="left">
+		<button class="button button-clear" ng-click="myGoBack()">
+			<i class="icon ion-ios-arrow-back"></i>
+			Back
+		</button>
+	</ion-nav-buttons>-->
+	<ion-content padding="true" class="has-header" style="margin-bottom: 60px;">
+		<ion-slides disable-side-menu-drag="" options="{'loop': true}" slider="slider" delegate-handle="slider" style="width:calc(100% + 20px);height:200px;margin-left:-10px;">
+			<ion-slide-page style="background:url('{{ serverURL + fotoBarang.foto }}'') no-repeat center;background-size:cover;" ng-repeat="fotoBarang in barangFotoByIdAll"></ion-slide-page>
+		</ion-slides>
+		<div>
+			<ion-list style="color: black;">
+				<ion-item>Nama
+					<span class="item-note">{{ barang.nama_barang }}</span>
+				</ion-item>
+				<ion-item>Merk
+					<span class="item-note">{{ barang.nama_merk | number }}</span>
+				</ion-item>
+				<ion-item>Harga Sewa
+					<span class="item-note">{{ barang.harga_sewa | currency : "Rp. " : 0 }}</span>
+				</ion-item>
+				<ion-item>Denda Terlambat
+					<span class="item-note">{{ barang.denda_lewat | currency : "Rp. " : 0 }}</span>
+				</ion-item>
+				<ion-item>Denda Hilang
+					<span class="item-note">{{ barang.denda_hilang | currency : "Rp. " : 0 }}</span>
+				</ion-item>
+				<div class="item item-body">
+					<div style="text-align:justify;" class="show-list-numbers-and-dots">
+						<p style="margin-top:0px;color:#000000;">
+							{{ barang.deskripsi_barang }}
+						</p>
+					</div>
+				</div>
+			</ion-list>
+		</div>
+	</ion-content>
+	<div class="bar bar-footer">
+		<div class="button-bar">
+			<a class="button button-energized icon ion-android-cart" ng-click="openModalKeranjang()">Add Cart</a>
+			<a class="button button-positive icon ion-android-send" ng-click="openModalOrder()">Order</a>
+		</div>
+	</div>
+</ion-view>
