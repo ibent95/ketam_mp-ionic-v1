@@ -105,10 +105,10 @@ angular.module('app.routes', [])
 	})
 
     .state('formKonfirmasi', {
-    url: '/formKonfirmasi',
-    templateUrl: 'templates/formKonfirmasi.html',
-    controller: 'formTransaksiCtrl' // formKonfirmasiCtrl
-  })
+		url: '/formKonfirmasi',
+		templateUrl: 'templates/formKonfirmasi.html',
+		controller: 'formTransaksiCtrl' // formKonfirmasiCtrl
+	})
 
 	.state('editProfil', {
 		url: '/editProfil',

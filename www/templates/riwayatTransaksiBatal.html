@@ -8,7 +8,7 @@
       <ion-item class="item" ng-if="transaksiBatalAll.message">
         <p class="text-center">Belum ada Data..!</p>
       </ion-item>
-      <ion-item class="" ng-if="!transaksiBatalAll.message" ng-repeat="transaksi in transaksiBatalAll">
+      <ion-item class="" ng-if="!transaksiBatalAll.message" ng-repeat="transaksi in transaksiBatalAll" ng-click="detailTransaksi(transaksi.id_transaksi)">
         <h2>{{ transaksi.no_transaksi }}</h2>
         <p style="white-space:normal;">{{ transaksi.tgl_transaksi }}</p>
       </ion-item>

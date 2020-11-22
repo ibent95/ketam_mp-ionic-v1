@@ -570,7 +570,7 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 			method: 'POST',
 			url: server + "?action=set_transaction_checked&id_transaksi=" + idTransaction,
 			data: {
-				"proses_checked": "pelanggan_return"
+				"proses_checked": "pelanggan_checked"
 			},
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		});
@@ -582,7 +582,7 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 			method: 'POST',
 			url: server + "?action=set_transaction_checked&id_transaksi=" + idTransaction,
 			data: {
-				"proses_checked": "pelanggan_checked"
+				"proses_checked": "pelanggan_return"
 			},
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		});

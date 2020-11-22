@@ -485,8 +485,36 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 } )
 .controller('riwayatTransaksiSelesaiCtrl', function ($scope, $state, $rootScope, action, service, $localStorage) {
 
+    $scope.detailTransaksi = function (idTransaksi) {
+        action.getTransactionById(idTransaksi).then(
+            function successCallback(response) {
+                $rootScope.transaksi = response.data.transaksi;
+                $state.go('rincianTransaksi');
+            },
+            function errorCallback(response) {
+                // $rootScope.barang = {};
+                // console.log(response + " " + md5.createHash($scope.data.password));
+                action.showAlert('Login gagal!', 'Mohon periksa koneksi anda!');
+            }
+        );
+    };
+
 } )
 .controller('riwayatTransaksiBatalCtrl', function ($scope, $state, $rootScope, action, service, $localStorage) {
+
+    $scope.detailTransaksi = function (idTransaksi) {
+        action.getTransactionById(idTransaksi).then(
+            function successCallback(response) {
+                $rootScope.transaksi = response.data.transaksi;
+                $state.go('rincianTransaksi');
+            },
+            function errorCallback(response) {
+                // $rootScope.barang = {};
+                // console.log(response + " " + md5.createHash($scope.data.password));
+                action.showAlert('Login gagal!', 'Mohon periksa koneksi anda!');
+            }
+        );
+    };
 
 } )
 .controller('formTransaksiCtrl', function ($scope, $state, $rootScope, $ionicHistory, action, service, $localStorage, $cordovaGeolocation, NgMap, $ionicLoading ) {
@@ -671,20 +699,16 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
     };
 
     $scope.$on("$ionicView.loaded", function () {
-        console.log($rootScope.transaksi);
         $scope.showItemsArrived($rootScope.transaksi);
         $scope.showConfirmReturn($rootScope.transaksi);
     });
 
     $scope.showItemsArrived = function (transaksi) {
-        console.log(transaksi);
         $scope.itemArrived = ((transaksi.status_transaksi == 'proses') && (transaksi.status_pengembalian == 'belum') && (transaksi.toko_check == 'sudah') && (transaksi.pelanggan_check == 'belum')) ? true : false ;
-        console.log($scope.itemArrived);
     }
 
     $scope.showConfirmReturn = function (transaksi) {
-        $scope.confirmReturn = ((transaksi.status_transaksi == "proses") && (transaksi.status_pengembalian == "belum") && (transaksi.toko_check == "selesai") && (transaksi.pelanggan_check == "sudah")) ? true : false ;
-        console.log($scope.confirmReturn);
+        $scope.confirmReturn = ((transaksi.status_transaksi == "proses") && (transaksi.status_pengembalian == "belum") && (transaksi.toko_check == "sudah") && (transaksi.pelanggan_check == "sudah")) ? true : false ;
     }
 
     $scope.setItemsArrived = function (transaksi) {
@@ -695,7 +719,9 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
                         function successCallback(response) {
                             if (response.data.success) {
                                 action.showAlert('Sukses', response.data.message);
+                                $scope.itemArrived = false;
                                 $rootScope.reloadRead();
+                                $state.go('tabsController.transaksiSaya');
                             } else if (response.data.error && response.data.warning) {
                                 action.showAlert('Proses Gagal!', response.data.message);
                             } else {
@@ -720,7 +746,9 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
                         function successCallback(response) {
                             if (response.data.success) {
                                 action.showAlert('Sukses', response.data.message);
+                                $scope.confirmReturn = false;
                                 $rootScope.reloadRead();
+                                $state.go('tabsController.transaksiSaya');
                             } else if (response.data.error && response.data.warning) {
                                 action.showAlert('Proses Gagal!', response.data.message);
                             } else {
@@ -995,11 +1023,13 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 			action.getInitHomeIfLogin($localStorage.login_customer.id_pelanggan).then(
 				function successCallback(response) {
 					$rootScope.keranjangAll = response.data.keranjangAll;
-					$rootScope.transaksiAll = response.data.transaksiAll;
+                    $rootScope.transaksiAll = response.data.transaksiAll;
+                    $rootScope.transaksi = {};
 				},
 				function errorCallback(response) {
 					$rootScope.keranjangAll = {};
-					$rootScope.transaksiAll = {};
+                    $rootScope.transaksiAll = {};
+                    $rootScope.transaksi = {};
 				}
 			);
 		}
