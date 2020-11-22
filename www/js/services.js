@@ -564,5 +564,29 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 		});
 	};
 
+	action.setItemArrived = function (idTransaction) {
+		//console.log(itemsToTransaction);
+		return $http({
+			method: 'POST',
+			url: server + "?action=set_transaction_checked&id_transaksi=" + idTransaction,
+			data: {
+				"proses_checked": "pelanggan_return"
+			},
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		});
+	};
+
+	action.setConfirmReturn = function (idTransaction) {
+		//console.log(itemsToTransaction);
+		return $http({
+			method: 'POST',
+			url: server + "?action=set_transaction_checked&id_transaksi=" + idTransaction,
+			data: {
+				"proses_checked": "pelanggan_checked"
+			},
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		});
+	};
+
 	return action;
 });

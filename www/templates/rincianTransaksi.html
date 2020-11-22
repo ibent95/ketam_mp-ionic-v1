@@ -2,7 +2,7 @@
   <ion-content padding="true" class="has-header">
     <ion-list class="">
       <ion-item class="item-divider">Informasi Umum : 
-        <button class="button button-balanced button-small" ng-if="itemArrived">
+        <button class="button button-balanced button-small" ng-if="itemArrived" ng-click="setItemsArrived(transaksi)">
           Diterima
         </button>
       </ion-item>
@@ -16,14 +16,13 @@
         <span class="item-note">{{ transaksi.nama_toko }}</span>
       </ion-item>
       <ion-item>Total Harga
-        
         <span class="item-note">{{ transaksi.no_transaksi }}</span>
       </ion-item>
       <ion-item class="item-divider">Pengembalian :</ion-item>
       <div class="item item-body">Status : 
         <span class="">{{ transaksi.status_pengembalian }}</span>
         <span>
-            <button class="button button-positive button-small" ng-if="confirmReturn">
+            <button class="button button-positive button-small" ng-if="confirmReturn" ng-click="setConfirmReturn(transaksi)">
               Confirm Return
             </button>
         </span>

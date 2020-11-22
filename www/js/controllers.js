@@ -678,23 +678,63 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 
     $scope.showItemsArrived = function (transaksi) {
         console.log(transaksi);
-        $scope.itemArrived = (
-            (transaksi.status_transaksi == 'proses') && 
-            (transaksi.status_pengembalian == 'belum') && 
-            (transaksi.toko_check == 'sudah') && 
-            (transaksi.pelanggan_check == 'belum')
-        ) ? true : false ;
+        $scope.itemArrived = ((transaksi.status_transaksi == 'proses') && (transaksi.status_pengembalian == 'belum') && (transaksi.toko_check == 'sudah') && (transaksi.pelanggan_check == 'belum')) ? true : false ;
         console.log($scope.itemArrived);
     }
 
     $scope.showConfirmReturn = function (transaksi) {
-        $scope.confirmReturn = (
-            (transaksi.status_transaksi == "proses") && 
-            (transaksi.status_pengembalian == "belum") && 
-            (transaksi.toko_check == "selesai") && 
-            (transaksi.pelanggan_check == "sudah")
-        ) ? true : false ;
+        $scope.confirmReturn = ((transaksi.status_transaksi == "proses") && (transaksi.status_pengembalian == "belum") && (transaksi.toko_check == "selesai") && (transaksi.pelanggan_check == "sudah")) ? true : false ;
         console.log($scope.confirmReturn);
+    }
+
+    $scope.setItemsArrived = function (transaksi) {
+        action.showConfirm($scope, 'Konfirmasi..!', 'Apakah anda yakin barang telah sampai..?').then(
+            function successCallback(confirmResponse) {
+                if (confirmResponse === true) {
+                    service.setItemArrived(transaksi.id_transaksi).then(
+                        function successCallback(response) {
+                            if (response.data.success) {
+                                action.showAlert('Sukses', response.data.message);
+                                $rootScope.reloadRead();
+                            } else if (response.data.error && response.data.warning) {
+                                action.showAlert('Proses Gagal!', response.data.message);
+                            } else {
+                                action.showAlert('Proses Gagal!', response.data.message);
+                            }
+                        }, function errorCallback(response) {
+                            action.showAlert('Proses Gagal!', 'Mohon periksa koneksi anda!');
+                        }
+                    );
+                }
+            }, function errorCallback(response) {
+                //
+            }
+        );
+    }
+
+    $scope.setConfirmReturn = function (transaksi) {
+        action.showConfirm($scope, 'Konfirmasi..!', 'Apakah anda yakin ingin menyelesaikan transaksi ini..?').then(
+            function successCallback(confirmResponse) {
+                if (confirmResponse === true) {
+                    service.setConfirmReturn(transaksi.id_transaksi).then(
+                        function successCallback(response) {
+                            if (response.data.success) {
+                                action.showAlert('Sukses', response.data.message);
+                                $rootScope.reloadRead();
+                            } else if (response.data.error && response.data.warning) {
+                                action.showAlert('Proses Gagal!', response.data.message);
+                            } else {
+                                action.showAlert('Proses Gagal!', response.data.message);
+                            }
+                        }, function errorCallback(response) {
+                            action.showAlert('Proses Gagal!', 'Mohon periksa koneksi anda!');
+                        }
+                    );
+                }
+            }, function errorCallback(response) {
+                //
+            }
+        );
     }
 
 } )
