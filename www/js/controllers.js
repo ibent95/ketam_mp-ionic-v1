@@ -674,7 +674,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
             function successCallback(response) {
                 if (response.data.success) {
                     action.showAlert('Sukses', response.data.message);
-                    $state.go('beranda');
+                    $state.go('tabsController.beranda');
                 } else if (response.data.error && response.data.warning) {
                     action.showAlert('Peringatan!', response.data.message);
                 } else {
