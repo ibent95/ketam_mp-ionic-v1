@@ -50,7 +50,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 .controller('barangDaftarCtrl', function ($scope, $state, action, $rootScope, $ionicHistory) {
 	$scope.myGoBack = function () {
 		$ionicHistory.goBack();
-	};
+    };
 
 	$scope.$on("$ionicView.loaded", function () {
 		action.getInitHome().then(
@@ -59,6 +59,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 					// console.log(response.data.barangAll);
 					$rootScope.logo = response.data.konfigurasi.logo;
 					$rootScope.barangAll = response.data.barangAll;
+                    console.log($rootScope.barangAll);
 				} else {
 					// console.log(response.data);
 					// action.showAlert('Maaf', response.data.error);
@@ -73,7 +74,8 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 			}
 		);
 
-	});
+    });
+
 
 	$scope.searchItemAll = function (keyword) {
 		action.searchBarangAll(keyword).then(
@@ -554,6 +556,10 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
         totalBayar: 0
     };
 
+    $scope.initTotalBayar = function(totalBayar, totalHarga) {
+        $scope.transactionData.totalBayar = parseInt(totalBayar) + parseInt(totalHarga);
+    };
+
     $scope.shippingChange = function () {
         if ($scope.transactionData.diantarkan === true) {
             $scope.reArrangePrice('+');
@@ -571,12 +577,12 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
                 id_toko: 0,
                 nama_barang: 'Biaya Pengantaran',
                 stok_barang: 0,
-                harga_sewa: $scope.totalCost,
+                harga_sewa: parseInt($scope.totalCost),
                 jumlah_barang: 1,
                 tglAwal: $rootScope.tglAwal,
                 tglAkhir: $rootScope.tglAkhir,
-                jumlahHariSewa: $rootScope.jumlahHariSewa,
-                total_harga: $scope.totalCost,
+                jumlahHariSewa: parseInt($rootScope.jumlahHariSewa),
+                total_harga: parseInt($scope.totalCost),
                 available: true
             }));
         } else if (operator === '-') {
@@ -679,6 +685,8 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
             function successCallback(response) {
                 if (response.data.success) {
                     action.showAlert('Sukses', response.data.message);
+                    $rootScope.itemsToTransaction = [];
+                    $rootScope.transactionData = {};
                     $rootScope.reloadRead();
                     $state.go('tabsController.beranda');
                 } else if (response.data.error && response.data.warning) {
@@ -806,8 +814,8 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 		jumlah_barang: 1,
 		tgl_sewa_awal: $rootScope.tglAwal,
 		tgl_sewa_akhir: $rootScope.tglAkhir,
-		jumlah_hari: $rootScope.jumlahHariSewa,
-        total_harga: $rootScope.jumlahHariSewa * 1 * $scope.barang.harga_sewa,
+        jumlah_hari: parseInt($rootScope.jumlahHariSewa),
+        total_harga: parseInt($rootScope.jumlahHariSewa) * 1 * parseInt($scope.barang.harga_sewa),
         available: $scope.barang.available,
         id_toko: parseInt($scope.barang.id_toko)
 	};
@@ -816,7 +824,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 	$scope.modalOrderState = false;
 
 	$scope.jumlahBarangChange = function () {
-		$scope.item.total_harga = $rootScope.jumlahHariSewa * $scope.item.jumlah_barang * $scope.item.harga_sewa;
+        $scope.item.total_harga = parseInt($rootScope.jumlahHariSewa) * parseInt($scope.item.jumlah_barang) * parseInt($scope.item.harga_sewa);
 	};
 
     $scope.tambahKeranjang = function (item) {

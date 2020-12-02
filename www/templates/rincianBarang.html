@@ -7,7 +7,7 @@
 	</ion-nav-buttons>-->
 	<ion-content padding="true" class="has-header" style="margin-bottom: 60px;">
 		<ion-slides disable-side-menu-drag="" options="{'loop': true}" slider="slider" delegate-handle="slider" style="width:calc(100% + 20px);height:200px;margin-left:-10px;">
-			<ion-slide-page style="background:url('{{ serverURL + fotoBarang.foto }}'') no-repeat center;background-size:cover;" ng-repeat="fotoBarang in barangFotoByIdAll"></ion-slide-page>
+			<ion-slide-page style="background:url('{{ serverURL + '/' + fotoBarang.foto }}') no-repeat center;background-size:cover;" ng-repeat="fotoBarang in barangFotoByIdAll"></ion-slide-page>
 		</ion-slides>
 		<div>
 			<ion-list style="color: black;">

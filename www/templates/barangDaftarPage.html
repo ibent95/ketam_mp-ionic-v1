@@ -21,9 +21,12 @@
 				style="margin-bottom: 0px;">
 				<ion-item id="barangDaftar-list-item12" ng-click="rincianBarang(barang)">{{ barang.nama_barang }}</ion-item>
 				<div class=" item item-image">
-					<a style="display:block;" ng-click="rincianBarang(barang)">
-						<img src="img/JN79HvaQQiERprqTs9g8_Logo.png"
-							style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
+					<a style="display:block;" ng-click="rincianBarang(barang)" ng-if="barang.foto_all" ng-repeat="item in barang.foto_all | limitTo: 1">
+						<img ng-if="item.foto" src="{{serverURL + '/' + item.foto}}" style="display: block; width: 100%; height: 100px; margin-left: auto; margin-right: auto;">
+						<img ng-if="!item.foto" src="img/3lMSLs2GRdCRObNa0Yw7_Logo.png" style="display: block; width: 100%; height: 100px; margin-left: auto; margin-right: auto;">
+					</a>
+					<a style="display:block;" ng-click="rincianBarang(barang)" ng-if="!barang.foto_all">
+						<img src="img/3lMSLs2GRdCRObNa0Yw7_Logo.png" style="display: block; width: 100%; height: 100px; margin-left: auto; margin-right: auto;">
 					</a>
 				</div>
 				<div class="item item-body" id="barangDaftar-list-item-container2">

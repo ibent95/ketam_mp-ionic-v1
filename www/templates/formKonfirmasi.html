@@ -5,7 +5,7 @@
                 <ion-item class="item-divider"> Item :</ion-item>
                 <ion-item ng-repeat="item in itemsToTransaction">
                     {{ item.nama_barang }}
-                    <span class="item-note" ng-init="transactionData.totalBayar = transactionData.totalBayar + item.total_harga;">{{ item.total_harga | currency : "Rp. " : 0 }}</span>
+                    <span class="item-note" ng-init="initTotalBayar(transactionData.totalBayar, item.total_harga)">{{ item.total_harga | currency : "Rp. " : 0 }}</span>
                 </ion-item>
                 <ion-item>
                     Total Bayar
