@@ -521,7 +521,7 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 			data: {
 				'pelanggan': pelanggan,
 			},
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			headers: { 'Content-Type': 'application/form-data' }
 		});
 	};
 
@@ -584,6 +584,26 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 			data: {
 				"proses_checked": "pelanggan_return"
 			},
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		});
+	};
+
+	action.setTransactionFinish = function (idTransaction) {
+		//console.log(itemsToTransaction);
+		return $http({
+			method: 'POST',
+			url: server + "?action=set_transaction_finish&id_transaksi=" + idTransaction,
+			data: {},
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		});
+	};
+
+	action.addRatingsToTransaction = function (idPelanggan, idTransaksi, ratings) {
+		//console.log(itemsToTransaction);
+		return $http({
+			method: 'POST',
+			url: server + "?action=add_ratings&id_pelanggan=" + idPelanggan + "&id_transaksi=" + idTransaksi,
+			data: ratings,
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		});
 	};

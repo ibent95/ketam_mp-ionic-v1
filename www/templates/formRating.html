@@ -1,0 +1,36 @@
+<ion-view title="Form Ratings">
+  <ion-nav-buttons side="right" class="has-header">
+    <!--<button class="button button-icon icon ion-person"></button>-->
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <form class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">No. Transaksi</span>
+        <div class="text-placeholder-like">
+          <span>{{ transaksi.no_transaksi }}</span>
+        </div>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Tgl. Transaksi</span>
+        <div class="text-placeholder-like">
+          <span>{{ transaksi.tgl_transaksi }}</span>
+        </div>
+      </label>
+      <label class="item item-input item-stacked-label" name="rating">
+        <span class="input-label">Rating</span>
+        <input type="hidden" ng-model="ratings.rating">
+        <star-rating-comp size="'large'" space="'between'" rating="'4'" label-position="'right'" speed="'noticeable'" on-rating-change="getStar($event)"></star-rating-comp>
+      </label>
+      <label class="item item-input item-stacked-label" name="ulasan">
+        <span class="input-label">Ulasan</span>
+        <textarea name="ratings.ulasan" ng-model="ratings.ulasan" rows="5"
+          placeholder="Masukan ulasan terkait layanan dalam transaksi ini..."></textarea>
+      </label>
+    
+      <button class="button button-positive button-block" ng-click="submitRatings(ratings)" id="set-date-button">
+        Kirim
+        <i class="ion ion-icon-chevron-right"></i>
+      </button>
+    </form>
+  </ion-content>
+</ion-view>

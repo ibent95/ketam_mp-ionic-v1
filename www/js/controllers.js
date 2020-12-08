@@ -426,10 +426,13 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 	};
 })
 .controller('transaksiSayaCtrl',  function ($scope, $state, $rootScope, action, service, $localStorage, $interval) {
-    var interval = null;
 
     $scope.$on("$ionicView.loaded", function () {
         //console.log('Transaksi');
+        $scope.getInitTransaction();
+    });
+
+    $scope.getInitTransaction = function () {
         action.getInitTransaction($localStorage.login_customer.id_pelanggan).then(
         	function successCallback(response) {
                 //console.log(response.data);
@@ -442,9 +445,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
         		// action.showAlert('Maaf', response.data.error);
         	}
         );
-
-        interval = $interval($rootScope.reloadRead, 1000);
-    });
+    };
     
     $scope.riwayatTransaksiSelesai = function () {
         action.getTransaction($localStorage.login_customer.id_pelanggan, 'selesai').then(
@@ -477,7 +478,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
     $scope.detailTransaksi = function (idTransaksi) {
         action.getTransactionById(idTransaksi).then(
             function successCallback(response) {
-                $interval.cancel(interval);
+                //$interval.cancel($interval);
                 $rootScope.transaksi = response.data.transaksi;
                 $state.go('rincianTransaksi');
             },
@@ -488,6 +489,8 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
             }
         );
     };
+
+    $rootScope.interval = ($rootScope.transaksiTungguAll || $rootScope.transaksiProsesAll) ? $interval($scope.getInitTransaction, 5000) : null;
 
 } )
 .controller('riwayatTransaksiSelesaiCtrl', function ($scope, $state, $rootScope, action, service, $localStorage) {
@@ -506,6 +509,20 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
         );
     };
 
+    $scope.goToRating = function ($idTransaksi) {
+        action.getTransactionById($rootScope.transaksi.id_transaksi).then(
+            function successCallback(response) {
+                $rootScope.transaksi = response.data.transaksi;
+                $state.go('formRating');
+            },
+            function errorCallback(response) {
+                // $rootScope.barang = {};
+                // console.log(response + " " + md5.createHash($scope.data.password));
+                action.showAlert('Login gagal!', 'Mohon periksa koneksi anda!');
+            }
+        );
+    };
+
 } )
 .controller('riwayatTransaksiBatalCtrl', function ($scope, $state, $rootScope, action, service, $localStorage) {
 
@@ -514,6 +531,20 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
             function successCallback(response) {
                 $rootScope.transaksi = response.data.transaksi;
                 $state.go('rincianTransaksi');
+            },
+            function errorCallback(response) {
+                // $rootScope.barang = {};
+                // console.log(response + " " + md5.createHash($scope.data.password));
+                action.showAlert('Login gagal!', 'Mohon periksa koneksi anda!');
+            }
+        );
+    };
+
+    $scope.goToRating = function ($idTransaksi) {
+        action.getTransactionById($rootScope.transaksi.id_transaksi).then(
+            function successCallback(response) {
+                $rootScope.transaksi = response.data.transaksi;
+                $state.go('formRating');
             },
             function errorCallback(response) {
                 // $rootScope.barang = {};
@@ -702,13 +733,40 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 })
 .controller('formPengantaranCtrl', function ($scope, $state) {} )
 .controller('formKonfirmasiCtrl', function ($scope, $state) {} )
-.controller('editProfilCtrl', function ($scope, $state) {} )
-.controller('rincianTransaksiCtrl', function ($scope, $rootScope, $state, action, service, $ionicHistory, $interval) {
+.controller('formRatingCtrl', function ($scope, $state, $rootScope, $ionicHistory, action, service, $localStorage, $interval) {
+    $scope.ratings = {
+        rating: 4,
+        ulasan: null
+    };
 
-    var interval = null;
+    $scope.getStar = function ($event) {
+        $scope.ratings.rating = $event.rating;
+    };
+
+    $scope.submitRatings = function (ratings) {
+        service.addRatingsToTransaction($localStorage.login_customer.id_pelanggan, $rootScope.transaksi.id_transaksi, ratings).then(
+            function successCallback(response) {
+                if (response.data.success) {
+                    action.showAlert('Sukses', response.data.success);
+                    $interval.cancel($rootScope.interval);
+                    $rootScope.reloadRead();
+                    $state.go('tabsController.transaksiSaya');
+                } else if (response.data.error && response.data.warning) {
+                    action.showAlert('Peringatan!', response.data.message);
+                } else {
+                    action.showAlert('Peringatan!', response.data.message);
+                }
+            }, function errorCallback(response) {
+                action.showAlert('Proses Gagal!', 'Mohon periksa koneksi anda!');
+            }
+        );
+    };
+})
+.controller('rincianTransaksiCtrl', function ($scope, $rootScope, $state, action, service, $ionicHistory, $interval) {
 
     $scope.itemArrived = false;
     $scope.confirmReturn = false;
+    $scope.confirmFinish = false;
 
     $scope.myGoBack = function () {
         $interval.cancel(interval);
@@ -718,7 +776,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
     $scope.$on("$ionicView.loaded", function () {
         $scope.showItemsArrived($rootScope.transaksi);
         $scope.showConfirmReturn($rootScope.transaksi);
-        interval = $interval($scope.detailTransaksi, 3000);
+        $scope.showConfirmFinish($rootScope.transaksi);
     });
 
     $scope.showItemsArrived = function (transaksi) {
@@ -727,6 +785,10 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 
     $scope.showConfirmReturn = function (transaksi) {
         $scope.confirmReturn = ((transaksi.status_transaksi == "proses") && (transaksi.status_pengembalian == "belum") && (transaksi.toko_check == "sudah") && (transaksi.pelanggan_check == "sudah")) ? true : false ;
+    }
+
+    $scope.showConfirmFinish = function (transaksi) {
+        $scope.confirmFinish = ((transaksi.status_transaksi == "proses") && (transaksi.status_pengembalian == "sudah") && (transaksi.toko_check == "selesai") && (transaksi.pelanggan_check == "sudah")) ? true : false ;
     }
 
     $scope.setItemsArrived = function (transaksi) {
@@ -757,7 +819,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
     }
 
     $scope.setConfirmReturn = function (transaksi) {
-        action.showConfirm($scope, 'Konfirmasi..!', 'Apakah anda yakin ingin menyelesaikan transaksi ini..?').then(
+        action.showConfirm($scope, 'Konfirmasi..!', 'Apakah anda yakin ingin mengembalikan transaksi ini..?').then(
             function successCallback(confirmResponse) {
                 if (confirmResponse === true) {
                     service.setConfirmReturn(transaksi.id_transaksi).then(
@@ -783,6 +845,47 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
         );
     }
 
+    $scope.setTransactionFinish = function (transaksi) {
+        action.showConfirm($scope, 'Konfirmasi..!', 'Apakah anda yakin ingin menyelesaikan transaksi ini..?').then(
+            function successCallback(confirmResponse) {
+                if (confirmResponse === true) {
+                    service.setTransactionFinish(transaksi.id_transaksi).then(
+                        function successCallback(response) {
+                            if (response.data.success) {
+                                action.showAlert('Sukses', response.data.message);
+                                $scope.confirmFinish = true;
+                                $rootScope.transaksi = {};
+                                $scope.goToRating(transaksi.id_transaksi);
+                            } else if (response.data.error && response.data.warning) {
+                                action.showAlert('Proses Gagal!', response.data.message);
+                            } else {
+                                action.showAlert('Proses Gagal!', response.data.message);
+                            }
+                        }, function errorCallback(response) {
+                            action.showAlert('Proses Gagal!', 'Mohon periksa koneksi anda!');
+                        }
+                    );
+                }
+            }, function errorCallback(response) {
+                //
+            }
+        );
+    }
+
+    $scope.goToRating = function (idTransaksi) {
+        action.getTransactionById(idTransaksi).then(
+            function successCallback(response) {
+                $rootScope.transaksi = response.data.transaksi;
+                $state.go('formRating');
+            },
+            function errorCallback(response) {
+                // $rootScope.barang = {};
+                // console.log(response + " " + md5.createHash($scope.data.password));
+                action.showAlert('Login gagal!', 'Mohon periksa koneksi anda!');
+            }
+        );
+    };
+
     $scope.detailTransaksi = function () {
         //console.log($rootScope.transaksi);
         action.getTransactionById($rootScope.transaksi.id_transaksi).then(
@@ -795,10 +898,14 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
                 action.showAlert('Login gagal!', 'Mohon periksa koneksi anda!');
             }
         );
+        $scope.showItemsArrived($rootScope.transaksi);
+        $scope.showConfirmReturn($rootScope.transaksi);
+        $scope.showConfirmFinish($rootScope.transaksi);
     };
 
+    $rootScope.interval = ($rootScope.transaksi) ? $interval($scope.detailTransaksi, 5000) : null ;
+
 } )
-.controller('editEmailCtrl', function ($scope, $state) {} )
 .controller('rincianBarangCtrl', function ($scope, $state, $ionicHistory, action, service, $rootScope, $localStorage, $ionicModal) {
 	$scope.myGoBack = function() {
 		$ionicHistory.goBack();
@@ -986,7 +1093,11 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
     });
 
 })
+.controller('editProfilCtrl', function ($scope, $state) {} )
+.controller('editEmailCtrl', function ($scope, $state) {} )
 .run(function ($rootScope, $state, action, service, $localStorage, md5, $interval) {
+
+    $rootScope.interval = null;
 
 	$rootScope.isLogin = false;
 

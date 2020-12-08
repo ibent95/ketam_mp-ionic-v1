@@ -110,6 +110,12 @@ angular.module('app.routes', [])
 		controller: 'formTransaksiCtrl' // formKonfirmasiCtrl
 	})
 
+	.state('formRating', {
+		url: '/formRating',
+		templateUrl: 'templates/formRating.html',
+		controller: 'formRatingCtrl'
+	})
+
 	.state('editProfil', {
 		url: '/editProfil',
 		templateUrl: 'templates/editProfil.html',
@@ -154,12 +160,6 @@ angular.module('app.routes', [])
 		templateUrl: 'templates/modal/modalKeranjang.html',
 		controller: 'keranjangCtrl'
 	})
-
-	//.state('cobaPage', {
-	//	url: '/page7',
-	//	templateUrl: 'templates/cobaPage.html',
-	//	controller: 'cobaPageCtrl'
-	//})
 
 	$urlRouterProvider.otherwise('/tabController/beranda')
 });
