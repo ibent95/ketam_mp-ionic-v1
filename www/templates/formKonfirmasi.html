@@ -5,11 +5,11 @@
                 <ion-item class="item-divider"> Item :</ion-item>
                 <ion-item ng-repeat="item in itemsToTransaction">
                     {{ item.nama_barang }}
-                    <span class="item-note" ng-init="initTotalBayar(transactionData.totalBayar, item.total_harga)">{{ item.total_harga | currency : "Rp. " : 0 }}</span>
+                    <span class="item-note" ng-init="initTotalBayar(currentTransactionData.totalBayar, item.total_harga)">{{ item.total_harga | currency : "Rp. " : 0 }}</span>
                 </ion-item>
                 <ion-item>
                     Total Bayar
-                    <span class="item-note">{{ transactionData.totalBayar | currency : "Rp. " : 0 }}</span>
+                    <span class="item-note">{{ currentTransactionData.totalBayar | currency : "Rp. " : 0 }}</span>
                 </ion-item>
                 <ion-item class="item-divider"> Data Konfirmasi :</ion-item>
                 <label class="item item-input">
@@ -18,7 +18,7 @@
                 </label>
                 <label class="item item-input">
                     <span class="input-label">No. HP</span>
-                    <span>{{ $scope.transactionData.no_telp }}</span>
+                    <span>{{ transactionData.no_telp }}</span>
                 </label>
                 <label class="item item-input item-stacked-label" name="keterangan">
                     <span class="input-label">Keterangan</span>

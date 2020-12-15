@@ -16,18 +16,18 @@
                 <ion-item class="item-divider"> Data Transaksi :</ion-item>
                 <label class="item item-input" name="nama_pelanggan">
                     <span class="input-label">Name</span>
-                    <input type="text" ng-model="transactionData.nama_pelanggan" placeholder="Nama Lengkap">
+                    <input type="text" ng-model="currentTransactionData.nama_pelanggan" placeholder="Nama Lengkap">
                 </label>
                 <label class="item item-input" name="no_hp">
                     <span class="input-label">No. HP</span>
-                    <input type="tel" ng-model="transactionData.no_telp" placeholder="No. HP yang bisa dihubungi">
+                    <input type="tel" ng-model="currentTransactionData.no_telp" placeholder="No. HP yang bisa dihubungi">
                 </label>
                 <label class="item item-input item-stacked-label" name="keterangan">
                     <span class="input-label">Keterangan</span>
-                    <textarea name="transactionData.no_telp" ng-model="transactionData.keterangan" rows="5" placeholder="Masukan keterangan untuk merincikan hal yang berkaitan dengan transaksi ini, seperti alamat yang lebih spesifik..."></textarea>
+                    <textarea name="transactionData.no_keterangan" ng-model="currentTransactionData.keterangan" rows="5" placeholder="Masukan keterangan untuk merincikan hal yang berkaitan dengan transaksi ini, seperti alamat yang lebih spesifik..."></textarea>
                 </label>
             </ion-list>
-            <ion-toggle toggle-class="toggle-positive" ng-model="transactionData.diantarkan" name="diantarkan" ng-change="shippingChange()">Diantarkan? (Biaya: Rp 20.000/item)</ion-toggle> <!-- ng-checked="false" -->
+            <ion-toggle toggle-class="toggle-positive" ng-model="currentTransactionData.diantarkan" name="diantarkan" ng-change="shippingChange()">Diantarkan? (Biaya: Rp 20.000/item)</ion-toggle> <!-- ng-checked="false" -->
             <button class="button button-positive button-block icon-right ion-android-send" ng-click="nextPage(2)">Lanjutkan</button>
         </form>
     </ion-content>

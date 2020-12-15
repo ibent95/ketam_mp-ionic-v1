@@ -59,7 +59,6 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 					// console.log(response.data.barangAll);
 					$rootScope.logo = response.data.konfigurasi.logo;
 					$rootScope.barangAll = response.data.barangAll;
-                    console.log($rootScope.barangAll);
 				} else {
 					// console.log(response.data);
 					// action.showAlert('Maaf', response.data.error);
@@ -556,10 +555,30 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 
 } )
 .controller('formTransaksiCtrl', function ($scope, $state, $rootScope, $ionicHistory, action, service, $localStorage, $cordovaGeolocation, NgMap, $ionicLoading ) {
-    //$scope.transactionData = {};
+
+    //$scope.currentTransactionData = {};
+
     $scope.myGoBack = function () {
 		$ionicHistory.goBack();
     };
+
+    $scope.$on("$ionicView.loaded", function () {
+        //$rootScope.transactionData.id_pelanggan = $rootScope.pelanggan.id_pelanggan;
+        //$rootScope.transactionData.nama_pelanggan = $rootScope.pelanggan.nama_pelanggan;
+        //$rootScope.transactionData.no_telp = $rootScope.pelanggan.telepon;
+
+        $scope.currentTransactionData = {
+            id_pelanggan: $rootScope.pelanggan.id_pelanggan,
+            nama_pelanggan: $rootScope.pelanggan.nama_pelanggan,
+            no_telp: $rootScope.pelanggan.telepon,
+            keterangan: $rootScope.transactionData.keterangan,
+            diantarkan: $rootScope.transactionData.diantarkan,
+            alamat_pengantaran: $rootScope.transactionData.alamat_pengantaran,
+            tgl_pengantaran: $rootScope.transactionData.tgl_pengantaran,
+            latlong: $rootScope.transactionData.latlong,
+            totalBayar: 0
+        };
+    });
 
     $scope.totalCost = 20000;
 
@@ -569,32 +588,18 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
     $scope.place = {};
     $scope.bounds = {};
 
-	$rootScope.transactionData.id_pelanggan = $rootScope.pelanggan.id_pelanggan;
-    $rootScope.transactionData.no_telp = $rootScope.pelanggan.telepon;
     //$rootScope.transactionData.tgl_awal_transaksi = $rootScope.tglAwal;
     //$rootScope.transactionData.tgl_akhir_transaksi = $rootScope.tglAwal;
     //$rootScope.transactionData.jumlah_hari = $rootScope.jumlahHariSewa;
 
-	$scope.transactionData = {
-        id_pelanggan: $rootScope.pelanggan.id_pelanggan,
-        nama_pelanggan: $rootScope.pelanggan.nama_pelanggan,
-        no_telp: $rootScope.transactionData.no_telp,
-        keterangan: $rootScope.transactionData.keterangan,
-        diantarkan: $rootScope.transactionData.diantarkan,
-        alamat_pengantaran: $rootScope.transactionData.alamat_pengantaran,
-        tgl_pengantaran: $rootScope.transactionData.tgl_pengantaran,
-        latlong: $rootScope.transactionData.latlong,
-        totalBayar: 0
-    };
-
     $scope.initTotalBayar = function(totalBayar, totalHarga) {
-        $scope.transactionData.totalBayar = parseInt(totalBayar) + parseInt(totalHarga);
+        $scope.currentTransactionData.totalBayar = parseInt(totalBayar) + parseInt(totalHarga);
     };
 
     $scope.shippingChange = function () {
-        if ($scope.transactionData.diantarkan === true) {
+        if ($scope.currentTransactionData.diantarkan === true) {
             $scope.reArrangePrice('+');
-        } else if ($scope.transactionData.diantarkan === false) {
+        } else if ($scope.currentTransactionData.diantarkan === false) {
             $scope.reArrangePrice('-');
         }
     };
@@ -622,15 +627,26 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
     };
 
     $scope.nextPage = function (step = 2) {
+        $rootScope.transactionData.nama_pelanggan = $scope.currentTransactionData.nama_pelanggan;
+        $rootScope.transactionData.no_telp = $scope.currentTransactionData.no_telp;
+        $rootScope.transactionData.keterangan = $scope.currentTransactionData.keterangan;
+        $rootScope.transactionData.diantarkan = $scope.currentTransactionData.diantarkan;
         switch (step) {
             case 1:
 
                 break;
             case 2:
-                if ($scope.transactionData.diantarkan === true) {
-                    //$scope.reArangePrice('+');
+                if ($scope.currentTransactionData.diantarkan === true) {
+                    //$rootScope.transactionData.nama_pelanggan = $scope.currentTransactionData.nama_pelanggan;
+                    //$rootScope.transactionData.no_telp = $scope.currentTransactionData.no_telp;
+                    //$rootScope.transactionData.keterangan = $scope.currentTransactionData.keterangan;
+                    //$rootScope.transactionData.diantarkan = $scope.currentTransactionData.diantarkan;
                     $state.go('formPengantaran');
                 } else {
+                    //$rootScope.transactionData.nama_pelanggan = $scope.currentTransactionData.nama_pelanggan;
+                    //$rootScope.transactionData.no_telp = $scope.currentTransactionData.no_telp;
+                    //$rootScope.transactionData.keterangan = $scope.currentTransactionData.keterangan;
+                    //$rootScope.transactionData.diantarkan = $scope.currentTransactionData.diantarkan;
                     $state.go('formKonfirmasi');
                 }
                 break;
@@ -638,12 +654,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
                 $state.go('formKonfirmasi');
                 break;
         }
-        $rootScope.transactionData.no_telp = $scope.transactionData.no_telp;
-        $rootScope.transactionData.keterangan = $scope.transactionData.keterangan;
-        $rootScope.transactionData.diantarkan = $scope.transactionData.diantarkan;
-        $rootScope.transactionData.tgl_pengantaran = $scope.transactionData.tgl_pengantaran;
-        $rootScope.transactionData.alamat_pengantaran = $scope.transactionData.alamat_pengantaran;
-        $rootScope.transactionData.latlong = $scope.transactionData.latlong;
+        console.log($rootScope.transactionData);
     };
 
     //$ionicLoading.show({
@@ -656,9 +667,9 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 
         $scope.map = google.maps.event.addListener($scope.map, 'center_changed', () => {
             var center = map.getCenter();
-            $scope.transactionData.latlong = center.lat() + ',' + center.lng();
+            $scope.currentTransactionData.latlong = center.lat() + ',' + center.lng();
             marker.setPosition(center);
-            //console.log($scope.transactionData.latlong);
+            //console.log($scope.currentTransactionData.latlong);
         });
 
         marker = new google.maps.Marker({
