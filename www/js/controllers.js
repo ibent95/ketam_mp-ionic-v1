@@ -321,7 +321,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 					action.showAlert('Sukses', response.data.success);
 					$state.go('tabsController.beranda');
 				} else if (response.data.error && response.data.warning) {
-					// console.log(response.data.barang);
+					console.log(response);
 					action.showAlert('Pendaftaran gagal!', response.data.error);
 				} else {
 					action.showAlert('Pendaftaran gagal!', response.data.error);
@@ -337,7 +337,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 
 	$scope.takeProfilePicture = function () {
 		var options = {
-			quality: 100,
+			quality: 50,
 			destinationType: Camera.DestinationType.FILE_URI,
 			sourceType: Camera.PictureSourceType.CAMERA,		// CAMERA | PHOTOLIBRARY | SAVEDPHOTOALBUM | 0: Photo Library, 1: Camera, 2: Saved Photo Album
 			mediaType: Camera.MediaType.PICTURE,
@@ -351,8 +351,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 		};
 
 		camera.getPicture(options).then(function (imageData) {
-			var currentName = imageData.replace(/^.*[\\\/]/, '');
-			$scope.fotoProfil = currentName;
+			$scope.fotoProfil = imageData;
 			//action.showAlert('Success', $scope.fotoProfil);
 		}, function (err) {
 			action.showAlert('Error', err);
@@ -397,7 +396,8 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 		};
 
 		camera.getPicture(options).then(function (imageData) {
-			$scope.fotoKTP = imageData;
+            $scope.fotoKTP = imageData;
+			//action.showAlert('Success', $scope.fotoKTP);
 		}, function (err) {
 			console.log(err);
 		});
@@ -1112,7 +1112,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 
 	$rootScope.isLogin = false;
 
-	$rootScope.serverURL = 'http://127.0.0.1/ketam_mp'
+    $rootScope.serverURL = 'https://a62058cb4ea2.ngrok.io/ketam_mp'
 
     $rootScope.konfigurasiAll = {};
     $rootScope.coordinate = {

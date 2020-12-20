@@ -1,5 +1,5 @@
 
-var server = "http://127.0.0.1/ketam_mp/service/"; // To AVD : http://10.0.2.2/ketam-mp/service/
+var server = "https://a62058cb4ea2.ngrok.io/ketam_mp/service/"; // To AVD : http://10.0.2.2/ketam-mp/service/
 var action = {};
 
 angular.module('app.services', ["angular-md5", "ngCordova"])
@@ -245,6 +245,7 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 					namePath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
 					// Move the file to permanent storage
 					$cordovaFile.moveFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(function onSuccess(success) {
+						//console.log(namePath + " | " + currentName + " | " + cordova.file.dataDirectory + " | " + newFileName);
 						fileName = cordova.file.dataDirectory + newFileName;
 						q.resolve(fileName);
 					}, function onError(error) {
@@ -259,45 +260,6 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 			function error(err) {
 				// Not always an error, maybe cancel was pressed...
 			});
-
-			// $cordovaCamera.getPicture(options).then(function (sourcePath) {
-			// 	var sourceDirectory		= sourcePath.substring(0, sourcePath.lastIndexOf('/') + 1);
-			// 	var sourceFileName		= sourcePath.substring(sourcePath.lastIndexOf('/') + 1, sourcePath.length);
-
-			// 	//$ionicPopup.alert({
-			// 	//	title: 'Info',
-			// 	//	template: 'Copying from : ' + sourceDirectory + sourceFileName + ' to : ' + cordova.file.dataDirectory + sourceFileName
-			// 	//});
-			// 	// console.log("Copying from : " + sourceDirectory + sourceFileName);
-			// 	// console.log("Copying to : " + cordova.file.dataDirectory + sourceFileName);
-
-			// 	if (options.sourceType === Camera.PictureSourceType.CAMERA) {
-
-			// 		fileName = cordova.file.dataDirectory + sourceFileName;
-			// 		q.resolve(fileName);
-			// 		// $cordovaFile.copyFile(sourceDirectory, sourceFileName, cordova.file.dataDirectory, sourceFileName).then(function (success) {
-			// 		// 	fileName = cordova.file.dataDirectory + sourceFileName;
-			// 		// 	q.resolve(fileName);
-			// 		// 	//$ionicPopup.alert({
-			// 		// 	//	title: 'Info on Success',
-			// 		// 	//	template: 'fileName : ' + fileName
-			// 		// 	//});
-			// 		// }, function (error) {
-			// 		// 	//$ionicPopup.alert({
-			// 		// 	//	title: 'Info on Error copyFile',
-			// 		// 	//	template: '' + JSON.stringify(error.response)
-			// 		// 	//});
-			// 		// 	console.dir(error);
-			// 		// 	q.reject(error);
-			// 		// });
-			// 	} else {
-			// 		fileName = cordova.file.dataDirectory + sourceFileName;
-			// 		q.resolve(fileName);
-			// 	}
-			// }, function (error) {
-			// 	// console.log(err);
-			// 	q.reject(error);
-			// });
 
 			return q.promise;
 		}
@@ -404,7 +366,7 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 	};
 
 	action.registerCustomer = function (pelanggan, fotoProfil, fotoKTP) {
-		// console.log(pelanggan);
+		console.log(pelanggan);
 
 		//$ionicPopup.alert({
 		//	title: 'Info',
@@ -421,30 +383,23 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 				fileKey: 'file',
 				fileName: fotoProfil.substr(fotoProfil.lastIndexOf('/') + 1),
 				mimeType: 'image/jpg',
-				chunkedMode: false,
-				params: {
-					'folder': 'pelanggan',
-					'type': 'img',
-					'length': 'short'
-				},
-				headers: {
-					'Content-Type': 'multipart/form-data'
-				}
+				chunkedMode: false
 			};
 
-			$cordovaFileTransfer.upload(server + '?action=upload_file', fotoProfil, uploadFotoProfilOptions).then(
+			$cordovaFileTransfer.upload(server + '?action=upload_file&folder=pelanggan&type=img&length=short', fotoProfil, uploadFotoProfilOptions).then(
 				function successCallback(message) {
-					$ionicPopup.alert({
-						title: 'Info',
-						template: 'Upload Foto Profil : ' + JSON.stringify(message.response)
-					});
+					//$ionicPopup.alert({
+					//	title: 'Info',
+					//	template: 'Upload Foto Profil : ' + JSON.stringify(message.response)
+					//});
 					if (message.response.success) {
 						uploadedFotoProfilName = message.response.file_url;
+						pelanggan.foto = message.response.file_url;
 
-						$ionicPopup.alert({
-							title: 'Info',
-							template: 'Upload Foto Profil is success : ' + uploadedFotoProfilName
-						});
+						//$ionicPopup.alert({
+						//	title: 'Info',
+						//	template: 'Upload Foto Profil is success : ' + uploadedFotoProfilName
+						//});
 
 					} else if (message.response.error | message.response.warning) {
 						//action.showAlert('Pendaftaran gagal!', message.error);
@@ -477,31 +432,27 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 				fileKey: 'file',
 				fileName: fotoKTP.substr(fotoKTP.lastIndexOf('/') + 1),
 				mimeType: 'image/jpg',
-				chunkedMode: false,
-				params: {
-					'folder': 'ktp',
-					'type': 'img',
-					'length': 'short'
-				},
-				headers: {  }
+				chunkedMode: false
 			};
 
-			$cordovaFileTransfer.upload(server + '?action=upload_file', fotoKTP, uploadFotoKTPOptions).then(
+			$cordovaFileTransfer.upload(server + '?action=upload_file&folder=pelanggan&type=img&length=short', fotoKTP, uploadFotoKTPOptions).then(
 				function successCallback(message) {
-					if (message.data.success) {
-						uploadedFotoKTPName = message.data.file_url;
-					} else if (message.data.error && message.data.warning) {
-						//action.showAlert('Pendaftaran gagal!', message.data.error);
-						response.errors = message.data.error;
-						response.warnings = message.data.warning;
+					//console.log(message);
+					if (message.response.success) {
+						uploadedFotoKTPName = message.response.file_url;
+						pelanggan.foto_ktp = message.response.file_url;
+					} else if (message.response.error && message.response.warning) {
+						//action.showAlert('Pendaftaran gagal!', message.response.error);
+						response.errors = message.response.error;
+						response.warnings = message.response.warning;
 					} else {
-						response.errors = message.data.error;
-						//action.showAlert('Pendaftaran gagal!', message.data.error);
+						response.errors = message.response.error;
+						//action.showAlert('Pendaftaran gagal!', message.response.error);
 					}
 				},
 				function errorCallback(message) {
 					// $rootScope.barang = {};
-					// console.log(response + " " + md5.createHash($scope.data.password));
+					// console.log(response + " " + md5.createHash($scope.response.password));
 					action.showAlert('Unggah Foto KTP Gagal!', 'Mohon periksa koneksi anda!');
 				}
 			);
@@ -514,14 +465,14 @@ angular.module('app.services', ["angular-md5", "ngCordova"])
 		//	title: 'Info',
 		//	template: pelanggan
 		//});
-
+		console.log(pelanggan);
 		return $http({
 			method: "POST",
 			url: server + "?action=register",
 			data: {
 				'pelanggan': pelanggan,
 			},
-			headers: { 'Content-Type': 'application/form-data' }
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		});
 	};
 

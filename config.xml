@@ -3,7 +3,7 @@
     <name>Ketam MP</name>
     <description>Marketplace penyewaan alat outdor.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ketam MP Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -85,4 +85,5 @@
     <plugin name="cordova-plugin-geolocation" spec="4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To use Google Maps API" />
     </plugin>
+    <allow-navigation href="http://localhost:8100" sessionid="a969fc1c" />
 </widget>
