@@ -1,5 +1,5 @@
 
-var server = "https://a62058cb4ea2.ngrok.io/ketam_mp/service/"; // To AVD : http://10.0.2.2/ketam-mp/service/
+var server = "http://localhost/ketam_mp/service/"; // To AVD : http://10.0.2.2/ketam-mp/service/
 var action = {};
 
 angular.module('app.services', ["angular-md5", "ngCordova"])

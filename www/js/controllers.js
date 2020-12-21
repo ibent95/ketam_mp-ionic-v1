@@ -1112,7 +1112,7 @@ angular.module('app.controllers', ["ionic", "ion-datetime-picker", "ngCordova", 
 
 	$rootScope.isLogin = false;
 
-    $rootScope.serverURL = 'https://a62058cb4ea2.ngrok.io/ketam_mp'
+    $rootScope.serverURL = 'https://localhost/ketam_mp'
 
     $rootScope.konfigurasiAll = {};
     $rootScope.coordinate = {
