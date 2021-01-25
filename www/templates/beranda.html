@@ -9,6 +9,7 @@
                 <span ng-if="tglAwal">{{tglAwal | date: 'yyyy-MM-dd'}}</span>
 				<input type="hidden" name="tglAwal" id="tglAwal" ng-model="tglAwal" ion-datetime-picker date monday-first value="{{tglAwal | date: 'yyyy-MM-dd'}}" />
 			</label>
+
 			<label class="item item-input item-floating-label" id="beranda-input-tgl-akhir">
 				<div class="text-placeholder-like">
                     <span ng-if="!tglAkhir">Tanggal Akhir...</span>
@@ -22,8 +23,14 @@
 				<i class="ion ion-icon-chevron-right"></i>
 			</button>
 		</form>
-
+		<div> 
+			<center>
+				<br> <br>
+				<img src="img/Capture.PNG" width="200px" height="150px"> 
+			</center>
+		</div>	
 		<!--<star-rating-comp rating="'3.0'"></star-rating-comp>-->
 
 	</ion-content>
 </ion-view>
+

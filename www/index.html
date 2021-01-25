@@ -27,6 +27,9 @@
 		<link href="css/ionic.app.css" rel="stylesheet">
 
 		<style type="text/css">
+		.icon.header-bar.bar-stable.bar.bar-header {
+				color:  rgb(70, 187, 47);
+			}
 			.platform-ios .manual-ios-statusbar-padding{
 				padding-top:20px;
 			}
@@ -107,6 +110,38 @@
 				-webkit-flex-wrap: wrap;
 				flex-wrap: wrap;
 			}
+			
+			.bar.bar-stable {
+				background-color: rgb(20, 126, 247);
+			}
+			
+			.menu .scroll-content {
+				background-color: rgb(241, 241, 241);
+			}
+
+			.item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
+				background-color: rgb(241, 241, 241);
+			}
+
+			.item-complex.item-icon-right .item-content {
+				background-color: rgb(241, 241, 241);
+			}
+
+			.tabs-stable > .tabs, .tabs.tabs-stable {
+				border-color: rgb(201, 201, 201);
+				background-color: rgb(241, 241, 241);
+				background-image: linear-gradient(0deg, #fafafa, #b2b2b2 50%, transparent 50%);
+				color: rgb(2, 61, 255);
+			}
+
+			.item {
+				color: #000000;
+			}
+
+		.item-icon-left .icon:before, .item-icon-right .icon:before {
+			background-color: rgba(17, 73, 255, 0.623);
+		}
+
 		</style>
 
         <link href="css/style.css" rel="stylesheet">
@@ -125,7 +160,6 @@
 		<!-- Only required for Tab projects w/ pages in multiple tabs
 		<script src="lib/ionicuirouter/ionicUIRouter.js"></script>
 		-->
-
 	</head>
 	<body ng-app="app" animation="slide-left-right-ios7">
 		<ion-pane>
