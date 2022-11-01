@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "An Ionic project",
   "devDependencies": {
-    "@ionic/v1-toolkit": "^1.0.0",
+    "@ionic/v1-toolkit": "^3.2.20",
     "cordova-android": "^9.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.2",
